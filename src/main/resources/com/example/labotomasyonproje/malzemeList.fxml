@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="411.0" prefWidth="656.0" style="-fx-background-color: linear-gradient(to  top, #808080, #FFFFFF);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.labotomasyonproje.ekipmanKotnrol">
+<AnchorPane prefHeight="411.0" prefWidth="656.0" style="-fx-background-color: linear-gradient(to right, #C8A2C8, #e4bce4);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.labotomasyonproje.ekipmanKotnrol">
    <children>
       <Label layoutX="277.0" layoutY="20.0" text="UYARI">
          <font>
@@ -33,7 +33,7 @@
             <Font name="Centaur" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="devamButton" layoutX="562.0" layoutY="352.0" mnemonicParsing="false" onAction="#checkEt" prefHeight="30.0" prefWidth="80.0" text="Devam">
+      <Button fx:id="devamButton" layoutX="562.0" layoutY="352.0" mnemonicParsing="false" onAction="#checkEt" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: f9d3f9;" text="Devam">
          <font>
             <Font size="15.0" />
          </font>

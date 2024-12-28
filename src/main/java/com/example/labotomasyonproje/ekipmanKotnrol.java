@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,17 +25,40 @@ public class ekipmanKotnrol {
     @FXML
     private CheckBox onlukCheck;
 
+    void bedenileilgilibilgi(){
+        char bununbeden = giren_kullanici.getInstance().getBeden();
+        StringBuilder uygunEkipmanlar = new StringBuilder("Senin bedenine uygun ekipmanlar:\n");
+
+        for (Ekipman ekipman : Ekipman.ekipmanListesi) {
+            if (ekipman.getBedenbuyuklugu() == bununbeden) {
+                uygunEkipmanlar.append("- ").append(ekipman.getIsim()).append(" (").append(bununbeden).append(" bedenden ").append(ekipman.getMiktar()).append(" adet kaldı.)\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Dikkat et");
+        alert.setHeaderText("Unutma, her deney için bir adet ekipman harcarsın!");
+        alert.setContentText(uygunEkipmanlar.toString());
+        alert.showAndWait();
+    }
+
     @FXML
-    public void checkEt(MouseEvent event) {
+    public void checkEt() {
         Alert alert;
         if (eldivenCheck.isSelected() && gozlukCheck.isSelected() && onlukCheck.isSelected()) {
+            bedenileilgilibilgi();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("deneyyapma.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) devamButton.getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Deney Yapma");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deneyyapma.fxml"));
+                Parent yeniRoot = fxmlLoader.load();
+
+                // Deney yapma kontrol sınıfını al ve gerekli işlemleri yap
+                A_deneyyapmaKontrol kontrol = fxmlLoader.getController();
+                // Gerekirse kontrol sınıfına veri aktarabilirsiniz.
+
+                Scene yeniSahne = new Scene(yeniRoot, 923, 660);
+                Stage mevcutPencere = (Stage) devamButton.getScene().getWindow();
+                mevcutPencere.setScene(yeniSahne);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

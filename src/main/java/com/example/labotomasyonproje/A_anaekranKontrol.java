@@ -1,5 +1,6 @@
 package com.example.labotomasyonproje;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,8 @@ public class A_anaekranKontrol {
     private ImageView anaekran_yonetimresmi;
     @FXML
     private Button yonetimButonu;
+    @FXML
+    private Button deneyYapButon;
 
     @FXML
     private void anaEkranCik(MouseEvent event) {
@@ -127,19 +130,14 @@ public class A_anaekranKontrol {
         }
         tus_ile_gorseldegistir(1);
     }
-    public void DeneyYap() {
-        bedenileilgilibilgi();
+    public void DeneyYap(MouseEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deneyyapma.fxml"));
-            Parent yeniRoot = fxmlLoader.load();
-
-            // Deney yapma kontrol sınıfını al ve gerekli işlemleri yap
-            A_deneyyapmaKontrol kontrol = fxmlLoader.getController();
-            // Gerekirse kontrol sınıfına veri aktarabilirsiniz.
-
-            Scene mevcutSahne = hosgeldinMesaji.getScene();
-            mevcutSahne.setRoot(yeniRoot);
-
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("malzemeList.fxml"));
+            Parent deneyRoot = fxmlLoader.load();
+            Stage stage = (Stage) deneyYapButon.getScene().getWindow();
+            Scene scene = new Scene(deneyRoot);
+            stage.setScene(scene);
+            stage.setTitle("Ekipman Giyme");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -158,23 +156,5 @@ public class A_anaekranKontrol {
             e.printStackTrace();
         }
     }
-    void bedenileilgilibilgi(){
-        char bununbeden = giren_kullanici.getInstance().getBeden();
-        StringBuilder uygunEkipmanlar = new StringBuilder("Senin bedenine uygun ekipmanlar:\n");
-
-        for (Ekipman ekipman : Ekipman.ekipmanListesi) {
-            if (ekipman.getBedenbuyuklugu() == bununbeden) {
-                uygunEkipmanlar.append("- ").append(ekipman.getIsim()).append(" (").append(bununbeden).append(" bedenden ").append(ekipman.getMiktar()).append(" adet kaldı.)\n");
-            }
-        }
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Dikkat et");
-        alert.setHeaderText("Unutma, her deney için bir adet ekipman harcarsın!");
-        alert.setContentText(uygunEkipmanlar.toString());
-        alert.showAndWait();
-    }
-
-
 
 }

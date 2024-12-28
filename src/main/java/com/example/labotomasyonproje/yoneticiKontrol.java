@@ -36,13 +36,7 @@ public class yoneticiKontrol {
     private Label tamirLabel;
 
     @FXML
-    private Label turbeLabel;
-
-    @FXML
     private Label alLabel;
-
-    @FXML
-    private Button alButon;
 
     @FXML
     void deneyekraninacik(MouseEvent event) {
@@ -69,18 +63,23 @@ public class yoneticiKontrol {
 
     @FXML
     public void yoneticiMaKineList(ActionEvent event) {
+        yoneticiEkranListele();
+    }
+
+    public void yoneticiEkranListele(){
+        makinelerListe.getItems().clear();
         makinelerListe.getItems().addAll(phmetre.tumphmetreler);
         makinelerListe.getItems().addAll(spektrofotometre.tumspektrofometre);
         makinelerListe.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         makineleriListele.setDisable(true);
     }
-
     @FXML
     public void tamirEt(ActionEvent event) {
         Makineler secim = makinelerListe.getSelectionModel().getSelectedItem();
         if (secim != null) {
             tamirLabel.setText(secim.getKendiadi() + " " + secim.getBarkodno() + " tamir edildi!");
             secim.setDayaniklilik(secim.getMax_dayaniklilik());
+            yoneticiEkranListele();
         } else {
             tamirLabel.setText("Lütfen bir makine seçin.");
         }
